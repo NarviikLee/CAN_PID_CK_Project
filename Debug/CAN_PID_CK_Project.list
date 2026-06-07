@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00024e50  00000000  00000000  0003a768  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00015e8c  00000000  00000000  0005f5b8  2**0
+ 17 .debug_line   00015e8a  00000000  00000000  0005f5b8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000dbf61  00000000  00000000  00075444  2**0
+ 18 .debug_str    000dbf61  00000000  00000000  00075442  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  001513a5  2**0
+ 19 .comment      00000050  00000000  00000000  001513a3  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000060d8  00000000  00000000  001513f8  2**2
+ 20 .debug_frame  000060d8  00000000  00000000  001513f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1737,6 +1737,7 @@ int main(void)
  80012be:	f000 ffb4 	bl	800222a <PID_Init>
 
     // 2. 타이머 및 인터럽트 시작
+  //HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
   HAL_TIM_Base_Start_IT(&htim3);      // 10ms 제어 주기 타이머 시작
  80012c2:	4896      	ldr	r0, [pc, #600]	; (800151c <main+0x2b0>)
  80012c4:	f003 ffe8 	bl	8005298 <HAL_TIM_Base_Start_IT>
@@ -2036,8 +2037,8 @@ int main(void)
  800149e:	6b7b      	ldr	r3, [r7, #52]	; 0x34
  80014a0:	f5b3 7f96 	cmp.w	r3, #300	; 0x12c
  80014a4:	dbde      	blt.n	8001464 <main+0x1f8>
+          }
       }
-
       // =================================================================
       // STEP 4: 구동 종료 후 안전 정지 및 SLEEP 모드 진입 준비
       // =================================================================

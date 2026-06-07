@@ -106,8 +106,7 @@ float Get_Motor_RPM(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-//	HAL_DBGMCU_EnableDBGSleepMode();
-//	HAL_DBGMCU_EnableDBGStopMode();
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -140,6 +139,7 @@ int main(void)
   PID_Init(&motorPID, 20.0f, 10.0f, 0.0f, SAMPLING_TIME, -4199.0f, 4199.0f);
 
     // 2. 타이머 및 인터럽트 시작
+  //HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
   HAL_TIM_Base_Start_IT(&htim3);      // 10ms 제어 주기 타이머 시작
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL); // 엔코더 카운터 시작
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);       // PWM 출력 시작
@@ -250,7 +250,6 @@ int main(void)
               HAL_Delay(10);
           }
       }
-
       // =================================================================
       // STEP 4: 구동 종료 후 안전 정지 및 SLEEP 모드 진입 준비
       // =================================================================
@@ -480,7 +479,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     if(GPIO_Pin == B1_Pin) // B1_Pin이 PC13으로 설정되어 있으므로 이를 확인
     {
-        button_wake = 1;
+    	button_wake = 1;
     }
 }
 /* USER CODE END 4 */
@@ -496,8 +495,8 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
-      HAL_UART_Transmit(&huart2, (uint8_t *)"🚨 Error Handler Trap!\r\n", 26, 100);
-//      HAL_Delay(1000); // 1초마다 출력 (원래 Systick이 죽어서 Delay가 안 먹힐 수 있으나, 일단 시도)
+      //HAL_UART_Transmit(&huart2, (uint8_t *)"🚨 Error Handler Trap!\r\n", 26, 100);
+      HAL_Delay(1000); // 1초마다 출력 (원래 Systick이 죽어서 Delay가 안 먹힐 수 있으나, 일단 시도)
   }
   /* USER CODE END Error_Handler_Debug */
 }
